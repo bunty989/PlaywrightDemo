@@ -1,0 +1,19 @@
+name: Auto Assignee assignment
+
+on:
+  issues:
+    types: [ opened ]
+  pull_request_target:
+    types: [ opened, ready_for_review, converted_to_draft ]
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Auto-assign issue'
+        uses: pozil/auto-assign-issue@v2.2.0
+        with:
+          assignees: ${{github.actor}}
+          repo-token: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}
+          numOfAssignee: 1
+          allowSelfAssign: true

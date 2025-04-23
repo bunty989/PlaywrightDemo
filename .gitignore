@@ -1,0 +1,4 @@
+/.vs/*
+/PlaywrightDemo/bin/*
+/PlaywrightDemo/Logs/*
+/PlaywrightDemo/obj/*

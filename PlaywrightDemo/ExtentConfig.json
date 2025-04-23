@@ -1,0 +1,12 @@
+{
+  "theme": "DARK",
+  "encoding": "utf-8",
+  "protocol": "HTTPS",
+  "timelineEnabled": false,
+  "thumbnailForBase64": false,
+  "documentTitle": "ExtentReports",
+  "reportName": "ExtentReports",
+  "timeStampFormat": "MMM dd, yyyy HH:mm:ss a",
+  "js": "",
+  "css": ""
+}
