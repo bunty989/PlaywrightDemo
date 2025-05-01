@@ -20,8 +20,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.52.0" />
-    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.51.0" />
-    <PackageReference Include="Microsoft.Playwright.TestAdapter" Version="1.51.0" />
+    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.52.0" />
+    <PackageReference Include="Microsoft.Playwright.TestAdapter" Version="1.52.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NUnit" Version="4.3.2" />
     <PackageReference Include="NUnit.Analyzers" Version="4.7.0">
