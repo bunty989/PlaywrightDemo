@@ -1,6 +1,5 @@
 using Microsoft.Playwright;
 using Serilog;
-using System.Threading.Tasks;
 using LocatorType = PlaywrightDemo.Utilities.TestConstant.LocatorType;
 using WebElementAction = PlaywrightDemo.Utilities.TestConstant.WebElementAction;
 

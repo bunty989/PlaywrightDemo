@@ -1,6 +1,7 @@
 @Retry
 Feature: AdvantageDemo
 
+@ui
 Scenario: Check error messages for Username, Email, Password & Confirm Password fields when all are empty
 	Given I navigate to the landing page of the app
 	When I see the page is loaded
@@ -12,6 +13,7 @@ Scenario: Check error messages for Username, Email, Password & Confirm Password 
     And I see the 'Password field is required' error message is displayed
     And I see the 'Confirm password field is required' error message is displayed
 
+@ui
 Scenario: Check error message are not displayed for Username, Email, Password & Confirm Password fields when they are filled
     Given I navigate to the landing page of the app
 	When I see the page is loaded

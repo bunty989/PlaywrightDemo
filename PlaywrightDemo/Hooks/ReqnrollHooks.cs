@@ -61,9 +61,18 @@ namespace PlaywrightDemo.Hooks
             var scenarioNode = featureNode.CreateNode<Scenario>(scenarioName);
             scenarioContext["ScenarioNode"] = scenarioNode;
             Log.Information("Selecting Scenario {0} to run", scenarioName);
-            var page = await DriverHelper.InitializeDriverAsync(scenarioName);
-            scenarioContext["Page"] = page;
-            BrowserVersion = BrowserVersion ?? GetBrowserVersion(scenarioName);
+            if (scenarioContext.ScenarioInfo.Tags.Contains("ui"))
+            {
+                var page = await DriverHelper.InitializeDriverAsync(scenarioName);
+                scenarioContext["Page"] = page;
+                BrowserVersion = BrowserVersion ?? GetBrowserVersion(scenarioName);
+            }
+            if (scenarioContext.ScenarioInfo.Tags.Contains("api")) 
+            {
+                await DriverHelper.InitializeAPIDriverAsync(scenarioName);
+                var playwrightInstance = DriverHelper.GetPlaywright(scenarioName);
+                scenarioContext["PlaywrightInstance"] = playwrightInstance;
+            }
             await Task.CompletedTask;
         }
 
@@ -92,6 +101,7 @@ namespace PlaywrightDemo.Hooks
                 { "Domain", Environment.UserDomainName },
                 { "Username", Environment.UserName },
                 { "OS Version", GetOSNameAndVersion() },
+                {"Playwright Version", GetPlaywrightVersion() },
                 {"Browser Name", BrowserType},
             };
             foreach (var (key, value) in sysInfo) { _extent.AddSystemInfo(key, value); }
@@ -115,60 +125,121 @@ namespace PlaywrightDemo.Hooks
             var stepType = _scenarioContext.StepContext.StepInfo.StepDefinitionType + " ";
             var stepStatus = _scenarioContext.StepContext.Status;
             var screenshotBase64 = Convert.ToBase64String(GetPageScreenshot(_scenarioContext.ScenarioInfo.Title));
-            var mediaEntity = MediaEntityBuilder
+            AventStack.ExtentReports.Model.Media? mediaEntity = null;
+            if (!string.IsNullOrEmpty(screenshotBase64)) {
+                mediaEntity = MediaEntityBuilder
                 .CreateScreenCaptureFromBase64String(screenshotBase64, null).Build();
+            }
             switch (stepStatus)
             {
                 case ScenarioExecutionStatus.OK:
                 {
-                    switch (stepType.ToUpper().Trim())
+                    if(_scenarioContext.ScenarioInfo.Tags.Contains("api"))
                     {
-                        case "GIVEN":
+                        switch (stepType.ToUpper().Trim())
                         {
-                            stepNode.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Pass(mediaEntity);
-                            break;
+                            case "GIVEN":
+                            {
+                                stepNode.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Pass(stepStatus.ToString().Trim());
+                                break;
+                            }
+                            case "WHEN":
+                            {
+                                stepNode.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Pass(stepStatus.ToString().Trim());
+                                break;
+                            }
+                            case "THEN":
+                            {
+                                stepNode.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Pass(stepStatus.ToString().Trim());
+                                break;
+                            }
+                            case "AND":
+                            {
+                                stepNode.CreateNode<And>(_scenarioContext.StepContext.StepInfo.Text).Pass(stepStatus.ToString().Trim());
+                                break;
+                            }
                         }
-                        case "WHEN":
+                    }
+                    else
+                    {
+                        switch (stepType.ToUpper().Trim())
                         {
-                            stepNode.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Pass(mediaEntity);
-                            break;
-                        }
-                        case "THEN":
-                        {
-                            stepNode.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Pass(mediaEntity);
-                            break;
-                        }
-                        case "AND":
-                        {
-                            stepNode.CreateNode<And>(_scenarioContext.StepContext.StepInfo.Text).Pass(mediaEntity);
-                            break;
+                            case "GIVEN":
+                            {
+                                stepNode.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Pass(mediaEntity);
+                                break;
+                            }
+                            case "WHEN":
+                            {
+                                stepNode.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Pass(mediaEntity);
+                                break;
+                            }
+                            case "THEN":
+                            {
+                                stepNode.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Pass(mediaEntity);
+                                break;
+                            }
+                            case "AND":
+                            {
+                                stepNode.CreateNode<And>(_scenarioContext.StepContext.StepInfo.Text).Pass(mediaEntity);
+                                break;
+                            }
                         }
                     }
                     break;
                 }
                 case ScenarioExecutionStatus.TestError:
                 {
-                    switch (stepType.ToUpper().Trim())
+                    if (_scenarioContext.ScenarioInfo.Tags.Contains("api"))
                     {
-                        case "GIVEN":
+                        switch (stepType.ToUpper().Trim())
                         {
-                            stepNode.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, mediaEntity);
-                            break;
+                            case "GIVEN":
+                            {
+                                stepNode.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
+                                break;
+                            }
+                            case "WHEN":
+                            {
+                                stepNode.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
+                                break;
+                            }
+                            case "THEN":
+                            {
+                                stepNode.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
+                                break;
+                            }
+                            case "AND":
+                            {
+                                stepNode.CreateNode<And>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message);
+                                break;
+                            }
                         }
-                        case "WHEN":
+                    }
+                    else 
+                    {
+                        switch (stepType.ToUpper().Trim())
                         {
-                            stepNode.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, mediaEntity);
-                            break;
-                        }
-                        case "THEN":
-                        {
-                            stepNode.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, mediaEntity);
-                            break;
-                        }
-                        case "AND":
-                        {
-                            stepNode.CreateNode<And>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, mediaEntity);
-                            break;
+                            case "GIVEN":
+                            {
+                                stepNode.CreateNode<Given>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, mediaEntity);
+                                break;
+                            }
+                            case "WHEN":
+                            {
+                                stepNode.CreateNode<When>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, mediaEntity);
+                                break;
+                            }
+                            case "THEN":
+                            {
+                                stepNode.CreateNode<Then>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, mediaEntity);
+                                break;
+                            }
+                            case "AND":
+                            {
+                                stepNode.CreateNode<And>(_scenarioContext.StepContext.StepInfo.Text).Fail(_scenarioContext.TestError.Message, mediaEntity);
+                                break;
+                            }
                         }
                     }
                     break;
@@ -227,7 +298,9 @@ namespace PlaywrightDemo.Hooks
             }
             else
             {
-                throw new InvalidOperationException("Current page is not available.");
+                Log.Error("Current page is not available.");
+                //throw new InvalidOperationException("Current page is not available.");
+                return Array.Empty<byte>();
             }
         }
 
@@ -267,6 +340,14 @@ namespace PlaywrightDemo.Hooks
             {
                 throw new InvalidOperationException("Current browser is not available.");
             }
+        }
+
+        private static string GetPlaywrightVersion()
+        {
+            var playwrightAssembly = typeof(Playwright).Assembly;
+            var version = playwrightAssembly.GetName().Version;
+            return version != null ? 
+                $"{version.Major}.{version.Minor}.{version.Build}" : "Unknown Version";
         }
     }
 }

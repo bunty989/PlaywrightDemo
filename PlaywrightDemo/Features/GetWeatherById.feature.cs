@@ -18,10 +18,10 @@ namespace PlaywrightDemo.Features
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("AdvantageDemo")]
+    [NUnit.Framework.DescriptionAttribute("Get WeatherById")]
     [NUnit.Framework.FixtureLifeCycleAttribute(NUnit.Framework.LifeCycle.InstancePerTestCase)]
     [NUnit.Framework.CategoryAttribute("Retry")]
-    public partial class AdvantageDemoFeature
+    public partial class GetWeatherByIdFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
@@ -29,9 +29,9 @@ namespace PlaywrightDemo.Features
         private static string[] featureTags = new string[] {
                 "Retry"};
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "AdvantageDemo", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Get WeatherById", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
-#line 1 "AdvantageDemo.feature"
+#line 1 "GetWeatherById.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -105,17 +105,15 @@ namespace PlaywrightDemo.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Check error messages for Username, Email, Password & Confirm Password fields when" +
-            " all are empty")]
+        [NUnit.Framework.DescriptionAttribute("Verify the Api response 200 for valid GetWeatherById request")]
         [NUnit.Framework.Retry(3)]
-        [NUnit.Framework.CategoryAttribute("ui")]
-        public async global::System.Threading.Tasks.Task CheckErrorMessagesForUsernameEmailPasswordConfirmPasswordFieldsWhenAllAreEmpty()
+        [NUnit.Framework.CategoryAttribute("api")]
+        public async global::System.Threading.Tasks.Task VerifyTheApiResponse200ForValidGetWeatherByIdRequest()
         {
             string[] tagsOfScenario = new string[] {
-                    "ui"};
+                    "api"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Check error messages for Username, Email, Password & Confirm Password fields when" +
-                    " all are empty", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Verify the Api response 200 for valid GetWeatherById request", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -127,49 +125,45 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 await this.ScenarioStartAsync();
 #line 6
- await testRunner.GivenAsync("I navigate to the landing page of the app", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync("I have the endpoint \'/data/2.5/weather\' and the search param is \'q=Sydney\' for Ge" +
+                        "tWeatherById", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 7
- await testRunner.WhenAsync("I see the page is loaded", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("I send a GET request to the GetWeatherById Url", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 8
-    await testRunner.AndAsync("I click the user button to create new user", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("I should get a response for the api call", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 9
-    await testRunner.AndAsync("I dont enter anything to username and email fields", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.ThenAsync("the response status code should be 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 10
-    await testRunner.AndAsync("I dont enter anything to password and confirm password fields", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("the resonse should pass the schema for \'Response 200\' for GetWeatherById", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 11
-    await testRunner.ThenAsync("I see the \'Username field is required\' error message is displayed", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.AndAsync("the value of the \'name\' is \'Sydney\' in the response", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 12
-    await testRunner.AndAsync("I see the \'Email field is required\' error message is displayed", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("the value of the \'coord.lon\' is \'151.2073\' in the response", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 13
-    await testRunner.AndAsync("I see the \'Password field is required\' error message is displayed", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 14
-    await testRunner.AndAsync("I see the \'Confirm password field is required\' error message is displayed", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("the value of the \'coord.lat\' is \'-33.8679\' in the response", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Check error message are not displayed for Username, Email, Password & Confirm Pas" +
-            "sword fields when they are filled")]
+        [NUnit.Framework.DescriptionAttribute("Verify the Api response 401 for invalid GetWeatherById request")]
         [NUnit.Framework.Retry(3)]
-        [NUnit.Framework.CategoryAttribute("ui")]
-        public async global::System.Threading.Tasks.Task CheckErrorMessageAreNotDisplayedForUsernameEmailPasswordConfirmPasswordFieldsWhenTheyAreFilled()
+        [NUnit.Framework.CategoryAttribute("api")]
+        public async global::System.Threading.Tasks.Task VerifyTheApiResponse401ForInvalidGetWeatherByIdRequest()
         {
             string[] tagsOfScenario = new string[] {
-                    "ui"};
+                    "api"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Check error message are not displayed for Username, Email, Password & Confirm Pas" +
-                    "sword fields when they are filled", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 17
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Verify the Api response 401 for invalid GetWeatherById request", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 16
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -179,38 +173,28 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
+#line 17
+ await testRunner.GivenAsync("I have the endpoint \'/data/2.5/weather\' and the search param is \'q=Sydney\' for Ge" +
+                        "tWeatherById", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
 #line 18
-    await testRunner.GivenAsync("I navigate to the landing page of the app", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.WhenAsync("I send a GET request to the GetWeatherById Url without the api key", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 19
- await testRunner.WhenAsync("I see the page is loaded", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.AndAsync("I should get a response for the api call", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 20
-    await testRunner.AndAsync("I click the user button to create new user", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.ThenAsync("the response status code should be 401", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 21
-    await testRunner.AndAsync("I enter \'admin\' to username field", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("the resonse should pass the schema for \'Response 401\' for GetWeatherById", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 22
-    await testRunner.AndAsync("I enter \'admin@gmail.com\' to email field", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("the value of the \'cod\' is \'401\' in the response", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 23
-    await testRunner.AndAsync("I enter \'Admin123\' to password field", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 24
-    await testRunner.AndAsync("I enter \'Admin123\' to confirm password field", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 25
-    await testRunner.ThenAsync("I dont see any error message for \'username\' field", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-#line 26
-    await testRunner.AndAsync("I dont see any error message for \'email\' field", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 27
-    await testRunner.AndAsync("I dont see any error message for \'password\' field", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 28
-    await testRunner.AndAsync("I dont see any error message for \'confirm password\' field", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync("the value of the \'message\' is \'Invalid API key. Please see https://openweathermap" +
+                        ".org/faq#error401 for more info.\' in the response", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
