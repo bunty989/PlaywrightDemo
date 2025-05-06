@@ -7,6 +7,7 @@ namespace PlaywrightDemo.Utilities
         {
             public const string WebDriverConfig = "webDriverConfig:";
             public const string AppConfig = "AppConfig:";
+            public const string APIConfig = "APIConfig:";
         }
 
         public static class ConfigTypesKey
@@ -17,6 +18,9 @@ namespace PlaywrightDemo.Utilities
             public const string ObjectIdentificationTimeOut = "ObjectIdentificationTimeOut";
             public const string Protocol = "Protocol";
             public const string AppUrl = "Url";
+            public const string BaseUrl = "BaseUrl";
+            public const string TimeOut = "TimeOut";
+            public const string AppId = "AppId";
         }
 
         public static class PathVariables
@@ -27,6 +31,14 @@ namespace PlaywrightDemo.Utilities
             public const string ConfigFileName = "appsettings.json";
             public const string LogName = @"\Log";
             public const string ExtentConfigName = "ExtentConfig.json";
+            public static string GetWeather200Schema = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                                                        "ApiModels/GetWeather/Schema/ResponseSchema200.json");
+            public static string GetWeather401Schema = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                                                        "ApiModels/GetWeather/Schema/ResponseSchema401.json");
+            public static string GetWeatherById200Schema = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                                                        "ApiModels/GetWeatherById/Schema/ResponseSchema200.json");
+            public static string GetWeatherById401Schema = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                                                        "ApiModels/GetWeatherById/Schema/ResponseSchema401.json");
         }
 
         public static class LoggerLevel

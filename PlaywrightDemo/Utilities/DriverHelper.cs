@@ -8,6 +8,7 @@ namespace PlaywrightDemo.Utilities
         private static readonly ConcurrentDictionary<string, IBrowser> BrowserInstances = new();
         private static readonly ConcurrentDictionary<string, IBrowserContext> ContextInstances = new();
         private static readonly ConcurrentDictionary<string, IPage> PageInstances = new();
+        private static readonly ConcurrentDictionary<string, IPlaywright> PlaywrightInstances = new();
 
         public static async Task<IPage> InitializeDriverAsync(string scenarioId)
         {
@@ -63,9 +64,18 @@ namespace PlaywrightDemo.Utilities
             return page;
         }
         
+        public static async Task InitializeAPIDriverAsync(string scenarioId)
+        {
+            var playwright = await Playwright.CreateAsync();
+            PlaywrightInstances[scenarioId] = playwright;
+        }
 
         public static async Task QuitDriverAsync(string scenarioId)
         {
+            if (PlaywrightInstances.TryRemove(scenarioId, out _))
+            {
+                PlaywrightInstances.Clear();
+            }
             if (ContextInstances.TryRemove(scenarioId, out var context))
             {
                 await context.CloseAsync();
@@ -76,6 +86,11 @@ namespace PlaywrightDemo.Utilities
                 await browser.CloseAsync();
             }
             PageInstances.TryRemove(scenarioId, out _);
+        }
+
+        public static IPlaywright? GetPlaywright(string scenarioId)
+        {
+            return PlaywrightInstances.TryGetValue(scenarioId, out var playwright) ? playwright : null;
         }
 
         public static IPage? GetPage(string scenarioId)
