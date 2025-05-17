@@ -9,17 +9,15 @@ on:
 jobs:
   test:
     name: ${{ matrix.browser }} on ${{ matrix.os }}
-    timeout-minutes: 3
+    timeout-minutes: 4
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-2025, macos-latest]
         browser: [Chromeheadless, Firefoxheadless, Edgeheadless, Webkitheadless]
         exclude:
           - os: macos-latest
-            browser: Edgeheadless
-          - os: windows-latest
             browser: Edgeheadless
         
     steps:
