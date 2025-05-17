@@ -1,5 +1,6 @@
 ﻿using Microsoft.Playwright;
 using System.Collections.Concurrent;
+using BrowserType = PlaywrightDemo.Utilities.TestConstant.BrowserType;
 
 namespace PlaywrightDemo.Utilities
 {
@@ -15,31 +16,61 @@ namespace PlaywrightDemo.Utilities
             var playwright = await Playwright.CreateAsync();
             var browser = ConfigHelper.ReadConfigValue(TestConstant.ConfigTypes.WebDriverConfig, 
                 TestConstant.ConfigTypesKey.Browser);
-            var Browser = browser?.ToLowerInvariant() switch
+            var Browser = Enum.Parse<BrowserType>(browser, true) switch
+                //browser?.ToLowerInvariant() switch
             {
-                "chrome" =>
+                BrowserType.Chrome =>
                     await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
                     {
                         Headless = false,
                         Args = ["--start-maximized", "--disable-gpu", "--no-sandbox"]
                     }),
-                "firefox" =>
+                BrowserType.Firefox =>
                     await playwright.Firefox.LaunchAsync(new BrowserTypeLaunchOptions
                     {
                         Headless = false
                     }),
-                "edge" =>
+                BrowserType.Edge =>
                     await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
                     {
                         Channel = "msedge",
                         Headless = false,
                         Args = ["--start-maximized", "--disable-gpu", "--no-sandbox"]
                     }),
-                "chromeheadless" =>
+                BrowserType.ChromeHeadless =>
                     await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
                     {
                         Headless = true,
                         Args = ["--disable-gpu", "--no-sandbox"]
+                    }),
+                BrowserType.ChromeIncognito =>
+                    await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+                    {
+                        Headless = false,
+                        Args = ["--start-maximized", "--disable-gpu", "--no-sandbox", "--incognito"]
+                    }),
+                BrowserType.FirefoxHeadless =>
+                    await playwright.Firefox.LaunchAsync(new BrowserTypeLaunchOptions
+                    {
+                        Headless = true
+                    }),
+                BrowserType.EdgeHeadless =>
+                    await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+                    {
+                        Channel = "msedge",
+                        Headless = true,
+                        Args = ["--disable-gpu", "--no-sandbox"]
+                    }),
+                BrowserType.Webkit =>
+                    await playwright.Webkit.LaunchAsync(new BrowserTypeLaunchOptions
+                    {
+                        Headless = false
+
+                    }),
+                BrowserType.WebkitHeadless =>
+                    await playwright.Webkit.LaunchAsync(new BrowserTypeLaunchOptions
+                    {
+                        Headless = true
                     }),
                 _ =>
                     await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
@@ -79,11 +110,15 @@ namespace PlaywrightDemo.Utilities
             if (ContextInstances.TryRemove(scenarioId, out var context))
             {
                 await context.CloseAsync();
+                await context.DisposeAsync();
+                context = null;
             }
 
             if (BrowserInstances.TryRemove(scenarioId, out var browser))
             {
                 await browser.CloseAsync();
+                await browser.DisposeAsync();
+                browser = null;
             }
             PageInstances.TryRemove(scenarioId, out _);
         }

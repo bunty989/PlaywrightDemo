@@ -50,10 +50,14 @@ namespace PlaywrightDemo.Utilities
         {
             Chrome,
             Firefox,
+            FirefoxHeadless,
             InternetExplorer,
             Edge,
+            EdgeHeadless,
             ChromeHeadless,
-            ChromeIncognito
+            ChromeIncognito,
+            Webkit,
+            WebkitHeadless,
         }
 
         public enum LocatorType

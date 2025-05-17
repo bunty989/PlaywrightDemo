@@ -1,0 +1,81 @@
+name: CI Deployment for Cross-Browser Testing
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    name: ${{ matrix.browser }} on ${{ matrix.os }}
+    timeout-minutes: 3
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        browser: [Chromeheadless, Firefoxheadless, Edgeheadless, Webkitheadless]
+        exclude:
+          - os: macos-latest
+            browser: Edgeheadless
+          - os: windows-latest
+            browser: Edgeheadless
+        
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: szenius/set-timezone@v2.0
+        with:
+          timezoneWindows: "AUS Eastern Standard Time"
+          
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Replace tokens
+        uses: cschleiden/replace-tokens@v1
+        with:
+          files: '["**/*.json"]'
+        env:
+          browser: ${{ matrix.browser }}
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Install Playwright Chromium
+        shell: pwsh
+        if: matrix.browser == 'Chromeheadless' || matrix.browser == 'Edgeheadless'
+        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net9.0/playwright.ps1 install chromium
+
+      - name: Install Playwright Firefox
+        shell: pwsh
+        if: matrix.browser == 'Firefoxheadless'
+        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net9.0/playwright.ps1 install firefox
+
+      - name: Install Playwright Webkit
+        shell: pwsh
+        if: matrix.browser == 'Webkitheadless'
+        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net9.0/playwright.ps1 install webkit
+
+      - name: Install Playwright Dependencies for Webkit
+        shell: pwsh
+        if: matrix.browser == 'Webkitheadless' && matrix.os == 'ubuntu-latest'
+        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net9.0/playwright.ps1 install-deps
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+
+      - name: Upload Artifact
+        if: always()
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: artifact_${{ matrix.os }}_${{ matrix.browser }}
+          path: |
+            ${{ github.workspace }}/PlaywrightDemo/Logs/
+          if-no-files-found: warn
+          compression-level: 9
