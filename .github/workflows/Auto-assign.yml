@@ -9,6 +9,7 @@ on:
 jobs:
   auto-assign:
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
       - name: 'Auto-assign issue'
         uses: pozil/auto-assign-issue@v2.2.0
