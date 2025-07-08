@@ -106,7 +106,7 @@ namespace PlaywrightDemo.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User navigates to the homepage")]
-        [NUnit.Framework.Retry(3)]
+        [NUnitRetry.NRetry(3)]
         [NUnit.Framework.CategoryAttribute("ui")]
         public async global::System.Threading.Tasks.Task UserNavigatesToTheHomepage()
         {
@@ -139,7 +139,7 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User logs in")]
-        [NUnit.Framework.Retry(3)]
+        [NUnitRetry.NRetry(3)]
         [NUnit.Framework.CategoryAttribute("ui")]
         public async global::System.Threading.Tasks.Task UserLogsIn()
         {

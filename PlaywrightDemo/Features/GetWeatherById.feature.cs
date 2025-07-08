@@ -106,7 +106,7 @@ namespace PlaywrightDemo.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Verify the Api response 200 for valid GetWeatherById request")]
-        [NUnit.Framework.Retry(3)]
+        [NUnitRetry.NRetry(3)]
         [NUnit.Framework.CategoryAttribute("api")]
         public async global::System.Threading.Tasks.Task VerifyTheApiResponse200ForValidGetWeatherByIdRequest()
         {
@@ -155,7 +155,7 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Verify the Api response 401 for invalid GetWeatherById request")]
-        [NUnit.Framework.Retry(3)]
+        [NUnitRetry.NRetry(3)]
         [NUnit.Framework.CategoryAttribute("api")]
         public async global::System.Threading.Tasks.Task VerifyTheApiResponse401ForInvalidGetWeatherByIdRequest()
         {

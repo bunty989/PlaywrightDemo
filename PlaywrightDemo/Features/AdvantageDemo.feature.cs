@@ -107,7 +107,7 @@ namespace PlaywrightDemo.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Check error messages for Username, Email, Password & Confirm Password fields when" +
             " all are empty")]
-        [NUnit.Framework.Retry(3)]
+        [NUnitRetry.NRetry(3)]
         [NUnit.Framework.CategoryAttribute("ui")]
         public async global::System.Threading.Tasks.Task CheckErrorMessagesForUsernameEmailPasswordConfirmPasswordFieldsWhenAllAreEmpty()
         {
@@ -160,7 +160,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Check error message are not displayed for Username, Email, Password & Confirm Pas" +
             "sword fields when they are filled")]
-        [NUnit.Framework.Retry(3)]
+        [NUnitRetry.NRetry(3)]
         [NUnit.Framework.CategoryAttribute("ui")]
         public async global::System.Threading.Tasks.Task CheckErrorMessageAreNotDisplayedForUsernameEmailPasswordConfirmPasswordFieldsWhenTheyAreFilled()
         {
