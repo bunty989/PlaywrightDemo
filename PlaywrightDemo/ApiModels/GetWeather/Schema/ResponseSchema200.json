@@ -12,6 +12,7 @@
           "type": "number"
         }
       },
+      "additionalProperties": false,
       "required": [
         "lon",
         "lat"
@@ -35,13 +36,15 @@
             "type": "string"
           }
         },
+        "additionalProperties": false,
         "required": [
           "id",
           "main",
           "description",
           "icon"
         ]
-      }
+      },
+      "additionalItems": false
     },
     "base": {
       "type": "string"
@@ -74,6 +77,7 @@
           "type": "integer"
         }
       },
+      "additionalProperties": false,
       "required": [
         "temp",
         "feels_like",
@@ -96,11 +100,16 @@
         },
         "deg": {
           "type": "integer"
+        },
+        "gust": {
+          "type": "number"
         }
       },
+      "additionalProperties": false,
       "required": [
         "speed",
-        "deg"
+        "deg",
+        "gust"
       ]
     },
     "clouds": {
@@ -110,6 +119,7 @@
           "type": "integer"
         }
       },
+      "additionalProperties": false,
       "required": [
         "all"
       ]
@@ -120,12 +130,6 @@
     "sys": {
       "type": "object",
       "properties": {
-        "type": {
-          "type": "integer"
-        },
-        "id": {
-          "type": "integer"
-        },
         "country": {
           "type": "string"
         },
@@ -136,9 +140,8 @@
           "type": "integer"
         }
       },
+      "additionalProperties": false,
       "required": [
-        "type",
-        "id",
         "country",
         "sunrise",
         "sunset"
@@ -157,6 +160,7 @@
       "type": "integer"
     }
   },
+  "additionalProperties": false,
   "required": [
     "coord",
     "weather",
