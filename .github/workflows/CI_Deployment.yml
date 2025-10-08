@@ -16,9 +16,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-2025, macos-latest]
         browser: [Chromeheadless, Firefoxheadless, Edgeheadless, Webkitheadless]
-        exclude:
-          - os: macos-latest
-            browser: Edgeheadless
         
     steps:
       - uses: actions/checkout@v5
