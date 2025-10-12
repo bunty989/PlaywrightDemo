@@ -100,16 +100,12 @@
         },
         "deg": {
           "type": "integer"
-        },
-        "gust": {
-          "type": "number"
         }
       },
       "additionalProperties": false,
       "required": [
         "speed",
-        "deg",
-        "gust"
+        "deg"
       ]
     },
     "clouds": {
@@ -130,6 +126,12 @@
     "sys": {
       "type": "object",
       "properties": {
+        "type": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "integer"
+        },
         "country": {
           "type": "string"
         },
@@ -142,6 +144,8 @@
       },
       "additionalProperties": false,
       "required": [
+        "type",
+        "id",
         "country",
         "sunrise",
         "sunset"
