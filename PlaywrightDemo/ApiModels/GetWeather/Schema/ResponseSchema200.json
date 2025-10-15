@@ -12,11 +12,7 @@
           "type": "number"
         }
       },
-      "additionalProperties": false,
-      "required": [
-        "lon",
-        "lat"
-      ]
+      "additionalProperties": false
     },
     "weather": {
       "type": "array",
@@ -36,13 +32,7 @@
             "type": "string"
           }
         },
-        "additionalProperties": false,
-        "required": [
-          "id",
-          "main",
-          "description",
-          "icon"
-        ]
+        "additionalProperties": false
       },
       "additionalItems": false
     },
@@ -77,17 +67,7 @@
           "type": "integer"
         }
       },
-      "additionalProperties": false,
-      "required": [
-        "temp",
-        "feels_like",
-        "temp_min",
-        "temp_max",
-        "pressure",
-        "humidity",
-        "sea_level",
-        "grnd_level"
-      ]
+      "additionalProperties": false
     },
     "visibility": {
       "type": "integer"
@@ -100,13 +80,12 @@
         },
         "deg": {
           "type": "integer"
+        },
+        "gust": {
+          "type": "number"
         }
       },
-      "additionalProperties": false,
-      "required": [
-        "speed",
-        "deg"
-      ]
+      "additionalProperties": false
     },
     "clouds": {
       "type": "object",
@@ -115,10 +94,7 @@
           "type": "integer"
         }
       },
-      "additionalProperties": false,
-      "required": [
-        "all"
-      ]
+      "additionalProperties": false
     },
     "dt": {
       "type": "integer"
@@ -142,14 +118,7 @@
           "type": "integer"
         }
       },
-      "additionalProperties": false,
-      "required": [
-        "type",
-        "id",
-        "country",
-        "sunrise",
-        "sunset"
-      ]
+      "additionalProperties": false
     },
     "timezone": {
       "type": "integer"
@@ -164,20 +133,5 @@
       "type": "integer"
     }
   },
-  "additionalProperties": false,
-  "required": [
-    "coord",
-    "weather",
-    "base",
-    "main",
-    "visibility",
-    "wind",
-    "clouds",
-    "dt",
-    "sys",
-    "timezone",
-    "id",
-    "name",
-    "cod"
-  ]
+  "additionalProperties": false
 }
