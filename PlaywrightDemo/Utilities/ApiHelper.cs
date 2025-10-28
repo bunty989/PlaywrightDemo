@@ -32,22 +32,27 @@ namespace PlaywrightDemo.Utilities
                 ExtraHTTPHeaders = headers,
                 IgnoreHTTPSErrors = true,
             };
+            Log.Debug($"API Request Client Setup with BaseUrl: {baseUrl}, Timeout: {requestContextOptions.Timeout}ms, Headers: {SerializeJson(headers)}");
             _requestContext = await _playwright.APIRequest.NewContextAsync(requestContextOptions);
         }
 
         // GET request
         public async Task<IAPIResponse> GetAsync(string? url, APIRequestContextOptions? options = null)
         {
-            return await _requestContext.GetAsync(url,options);
+            var res = await _requestContext.GetAsync(url,options);
+            Log.Debug($"GET Request to {url} returned status code {res.Status} with body {res.TextAsync().Result}");
+            return res;
         }
 
         // POST request
         public async Task<IAPIResponse> PostAsync(string url, object body)
         {
-            return await _requestContext.PostAsync(url, new()
+            var res =  await _requestContext.PostAsync(url, new()
             {
                 DataObject = body
             });
+            Log.Debug($"POST Request to {url} returned status code {res.Status} with body {res.TextAsync().Result}");
+            return res;
         }
 
         // PUT request
