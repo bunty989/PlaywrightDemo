@@ -39,6 +39,10 @@ namespace PlaywrightDemo.Utilities
                                                         "ApiModels/GetWeatherById/Schema/ResponseSchema200.json");
             public static string GetWeatherById401Schema = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                                                         "ApiModels/GetWeatherById/Schema/ResponseSchema401.json");
+            public static string PostProducts201Schema = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                                                        "ApiModels/PostProducts/Schema/ResponseSchema201.json");
+            public static string PostProductsBody = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                                                        "ApiModels/PostProducts/Body/Body.json");
         }
 
         public static class LoggerLevel
