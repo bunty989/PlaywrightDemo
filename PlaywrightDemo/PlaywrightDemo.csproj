@@ -30,7 +30,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
-    <PackageReference Include="NUnitRetry.ReqnrollPlugin" Version="2.0.13" />
+    <PackageReference Include="NUnitRetry.ReqnrollPlugin" Version="2.0.14" />
     <PackageReference Include="Reqnroll" Version="3.3.1" />
     <PackageReference Include="Reqnroll.NUnit" Version="3.3.1" />
     <PackageReference Include="Serilog" Version="4.3.0" />
