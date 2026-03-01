@@ -82,7 +82,7 @@
           "type": "integer"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": true
     },
     "rain": {
       "type": "object",
