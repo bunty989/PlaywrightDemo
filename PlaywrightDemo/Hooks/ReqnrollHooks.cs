@@ -255,7 +255,6 @@ namespace PlaywrightDemo.Hooks
                 _extent?.AddSystemInfo("Browser Version", BrowserVersion);
                 addSystemInfo = true;
             }
-            _extent?.Flush();
             Log.Information("Ending feature file {0} execution", featureContext?.FeatureInfo.Title);
         }
 
@@ -271,6 +270,7 @@ namespace PlaywrightDemo.Hooks
         public static async Task AfterTestRun()
         {
             Log.CloseAndFlush();
+            _extent?.Flush();
             await Task.CompletedTask;
         }
 
