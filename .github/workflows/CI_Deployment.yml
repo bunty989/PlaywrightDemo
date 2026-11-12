@@ -27,7 +27,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 10.0.x
 
       - name: Restore dependencies
         run: dotnet restore
@@ -45,22 +45,22 @@ jobs:
       - name: Install Playwright Chromium
         shell: pwsh
         if: matrix.browser == 'Chromeheadless' || matrix.browser == 'Edgeheadless'
-        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net9.0/playwright.ps1 install chromium
+        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net10.0/playwright.ps1 install chromium
 
       - name: Install Playwright Firefox
         shell: pwsh
         if: matrix.browser == 'Firefoxheadless'
-        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net9.0/playwright.ps1 install firefox
+        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net10.0/playwright.ps1 install firefox
 
       - name: Install Playwright Webkit
         shell: pwsh
         if: matrix.browser == 'Webkitheadless'
-        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net9.0/playwright.ps1 install webkit
+        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net10.0/playwright.ps1 install webkit
 
       - name: Install Playwright Dependencies for Webkit
         shell: pwsh
         if: matrix.browser == 'Webkitheadless' && matrix.os == 'ubuntu-latest'
-        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net9.0/playwright.ps1 install-deps
+        run: ${{ github.workspace }}/PlaywrightDemo/bin/Debug/net10.0/playwright.ps1 install-deps
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
